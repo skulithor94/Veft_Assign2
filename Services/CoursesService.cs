@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using assign2.Models; 
 using assign2.Services.Entities;
+using System;
 
 namespace assign2.Services
 {
@@ -47,6 +48,22 @@ namespace assign2.Services
                             Name = ct.Name,
                             Semester = c.Semester
                         }).SingleOrDefault();
+        }
+
+        public bool DeleteCourseByID(int id)
+        {
+            var course = (from c in _db.Courses
+                            where c.ID == id
+                            select c).SingleOrDefault();
+            if(course == null)
+            {
+                return false;
+            }
+
+            _db.Courses.Remove(course);
+            _db.SaveChanges();
+
+            return true;
         }
 
         public void AddCourse(AddCourseViewModel model)
