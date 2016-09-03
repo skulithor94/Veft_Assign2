@@ -90,21 +90,31 @@ namespace assign2.Services
             return true;
         }
 
+
         /// <summary>
         ///         TODO
         /// </summary>
         /// <param name="model"></param>
         public void AddCourse(AddCourseViewModel model)
         {
-            var course = new Course
-            {
-                TemplateID = model.TemplateID,
-                Semester = model.Semester
-            };
-
-            _db.Courses.Add(course);
-            _db.SaveChanges();
+            
         }
-        
+
+        public bool EditCourseByID(int id, EditCourseViewModel model)
+        {
+             var course = (from c in _db.Courses
+                            where c.ID == id
+                            select c).SingleOrDefault();
+            
+            if(course == null)
+            {
+                return false;
+            }
+            course.StartDate = model.StartDate;
+            course.EndDate = model.EndDate;
+            _db.SaveChanges();
+
+            return true;
+        }        
     }
 }

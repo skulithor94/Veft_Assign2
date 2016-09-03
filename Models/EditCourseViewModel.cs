@@ -1,23 +1,13 @@
 using System;
 
-namespace assign2.Services.Entities
+namespace assign2.Models
 {
-    public class Course
+    public class EditCourseViewModel
     {
-        /// <summary>
+         /// <summary>
         /// Primary key in db
         /// </summary>
         public int ID { get; set; }
-
-        /// <summary>
-        /// Foreign key to CourseTemplate table
-        /// </summary>
-        public int TemplateID { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Semester { get; set; }
 
         /// <summary>
         /// 

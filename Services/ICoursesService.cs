@@ -8,6 +8,6 @@ namespace assign2.Services
         List<CourseLiteDTO> GetCoursesBySemester(string semester);
         CourseLiteDTO GetCourseByID(int id);
         bool DeleteCourseByID(int id);
-        //TODO: Add more functions
+        bool EditCourseByID(int id, EditCourseViewModel model);
     }
 }

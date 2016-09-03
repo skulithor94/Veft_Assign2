@@ -12,9 +12,5 @@ namespace assign2.Services.Entities
         /// </summary>
         public string Name { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Credits { get; set; }
     }
 }
