@@ -56,8 +56,14 @@ namespace assign2.API.Controllers
 
         [HttpPut]
         [Route("{id:int}")]    
-        public void EditCourseByID(int id, [FromBody]string value)
+        public IActionResult EditCourseByID(int id, [FromBody]EditCourseViewModel model)
         {
+            bool edited = _service.EditCourseByID(id, model);
+            if(edited)
+            {
+                return new NoContentResult();
+            }
+            return NotFound();
         }
         
         [HttpDelete]

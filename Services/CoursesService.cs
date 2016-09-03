@@ -66,16 +66,21 @@ namespace assign2.Services
             return true;
         }
 
-        public void AddCourse(AddCourseViewModel model)
+        public bool EditCourseByID(int id, EditCourseViewModel model)
         {
-            var course = new Course
+             var course = (from c in _db.Courses
+                            where c.ID == id
+                            select c).SingleOrDefault();
+            
+            if(course == null)
             {
-                TemplateID = model.TemplateID,
-                Semester = model.Semester
-            };
-
-            _db.Courses.Add(course);
+                return false;
+            }
+            course.StartDate = model.StartDate;
+            course.EndDate = model.EndDate;
             _db.SaveChanges();
+
+            return true;
         }
         
     }
