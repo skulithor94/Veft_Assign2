@@ -15,9 +15,18 @@ namespace assign2.Services
             _db = db;
         }
 
+        /// <summary>
+        /// Gets a list of courses that all belong to the same semester
+        /// </summary>
+        /// <param name="semester">
+        /// An optional string representing the semester, 
+        /// if skipped the request will default semester to 20163
+        /// </param>
+        /// <returns>
+        ///  List<CourseLiteDTO>
+        /// </returns>
         public List<CourseLiteDTO> GetCoursesBySemester(string semester)
         {
-
             if(semester == null)
             {
                 semester = "20163";
@@ -25,7 +34,7 @@ namespace assign2.Services
 
             var result = (from c in _db.Courses
                 join ct in _db.CoursesTemplates on c.TemplateID equals ct.ID
-                where c.Semester == semester 
+                where c.Semester == semester
                 orderby ct.Name
                 select new CourseLiteDTO
                 {
@@ -37,6 +46,13 @@ namespace assign2.Services
                 return result;
         }
 
+        /// <summary>
+        /// Gets a single course that has the given id
+        /// </summary>
+        /// <param name="id">An integer representing the course id</param>
+        /// <returns>
+        /// CourseLiteDTO
+        /// </returns>
         public CourseLiteDTO GetCourseByID(int id)
         {
             return (from c in _db.Courses
@@ -50,6 +66,14 @@ namespace assign2.Services
                         }).SingleOrDefault();
         }
 
+        /// <summary>
+        /// Deletes a single course that has the given id, 
+        /// returning true on a successful delete, false otherwise
+        /// </summary>
+        /// <param name="id">An integer representing the course id</param>
+        /// <returns>
+        /// bool
+        /// </returns>
         public bool DeleteCourseByID(int id)
         {
             var course = (from c in _db.Courses
@@ -66,6 +90,10 @@ namespace assign2.Services
             return true;
         }
 
+        /// <summary>
+        ///         TODO
+        /// </summary>
+        /// <param name="model"></param>
         public void AddCourse(AddCourseViewModel model)
         {
             var course = new Course
