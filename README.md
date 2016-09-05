@@ -5,6 +5,10 @@ Summary Folder Overview:
     Models      - Library storage for Models.
     Services    - Library storage for Services.
 
+Summary Model Type Overview:
+    DTO:        Data the API returns to a client
+    ViewModel:  Data the API accepts from a client
+    Entity:     Class that maps to a database   
 
 - [ ] XML documentation (20%)
     - [ ] API methods
@@ -24,14 +28,14 @@ Summary Folder Overview:
     - [ ] Use DTO/Viewmodel classes for return, applies to the above
 
 - [ ] ROUTE SUPPORT
-    - [ ] /api/courses - GET
-        - [ ] Should return "T-514-VEFT" "20163"
-    - [ ] /api/courses?semester=20153
-        - [ ] Should return "T-514-VEFT" and "T-111-PROG" both "20153" 
-    - [ ] /api/courses/1 - GET
-        - [ ] Should return a more detailed object describing "T-514-VEFT", taught in "20153"
-    - [ ] /api/courses/999- GET
-        - [ ] Should return HTTP 404
+    - [x] /api/courses - GET
+        - [x] Should return "T-514-VEFT" "20163"
+    - [x] /api/courses?semester=20153
+        - [x] Should return "T-514-VEFT" and "T-111-PROG" both "20153" 
+    - [x] /api/courses/1 - GET
+        - [x] Should return a more detailed object describing "T-514-VEFT", taught in "20153"
+    - [x] /api/courses/999- GET
+        - [x] Should return HTTP 404
     - [ ] /api/courses/1 - PUT
         - [ ] Should allow the client of the API to modify the given course instance.
         - [ ] CourseID and Semester are required

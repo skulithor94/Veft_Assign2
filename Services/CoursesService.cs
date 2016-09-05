@@ -19,30 +19,39 @@ namespace assign2.Services
         /// Gets a list of courses that all belong to the same semester
         /// </summary>
         /// <param name="semester">
-        /// An optional string representing the semester, 
+        /// An optional string representing the semester,
         /// if skipped the request will default semester to 20163
         /// </param>
         /// <returns>
-        ///  List<CourseLiteDTO>
+        ///  List<CourseSimpleDTO>
         /// </returns>
-        public List<CourseLiteDTO> GetCoursesBySemester(string semester)
+        public List<CourseSimpleDTO> GetCoursesBySemester(string semester)
         {
+            // Defaulting to the current semester, ideally this should not be hardcoded
             if(semester == null)
-            {
                 semester = "20163";
-            }
 
-            var result = (from c in _db.Courses
-                join ct in _db.CoursesTemplates on c.TemplateID equals ct.ID
-                where c.Semester == semester
-                orderby ct.Name
-                select new CourseLiteDTO
+            // LINQ: joining the barebone course info with the detailed info
+            var result = (
+                from course in _db.Courses
+                join courseTemplate in _db.CoursesTemplates                
+                on course.TemplateID equals courseTemplate.ID
+                where course.Semester == semester
+                orderby courseTemplate.Name
+
+                // Mapping to a DTO
+                select new CourseSimpleDTO
                 {
-                    ID = c.ID,
-                    Name = ct.Name,
-                    Semester = c.Semester
+                    ID = course.ID,                    
+                    Name = courseTemplate.Name,
+                    CourseID = courseTemplate.CourseID,
+                    Semester = course.Semester
                 }).ToList();
 
+
+
+                // append number of students to this
+                
                 return result;
         }
 
@@ -51,19 +60,22 @@ namespace assign2.Services
         /// </summary>
         /// <param name="id">An integer representing the course id</param>
         /// <returns>
-        /// CourseLiteDTO
+        /// CourseSimpleDTO
         /// </returns>
-        public CourseLiteDTO GetCourseByID(int id)
+        public CourseSimpleDTO GetCourseByID(int id)
         {
-            return (from c in _db.Courses
-                        join ct in _db.CoursesTemplates on c.TemplateID equals ct.ID
-                        where c.ID == id
-                        select new CourseLiteDTO
-                        {
-                            ID = c.ID,
-                            Name = ct.Name,
-                            Semester = c.Semester
-                        }).SingleOrDefault();
+            return (
+                from course in _db.Courses                
+                join courseTemplate in _db.CoursesTemplates on course.TemplateID equals courseTemplate.ID
+                where course.ID == id
+
+                select new CourseSimpleDTO
+                {
+                    ID = course.ID,
+                    Name = courseTemplate.Name,
+                    CourseID = courseTemplate.CourseID,
+                    Semester = course.Semester
+                }).SingleOrDefault();
         }
 
         /// <summary>
@@ -76,42 +88,52 @@ namespace assign2.Services
         /// </returns>
         public bool DeleteCourseByID(int id)
         {
-            var course = (from c in _db.Courses
-                            where c.ID == id
-                            select c).SingleOrDefault();
-            if(course == null)
-            {
+            var result = (
+                from course in _db.Courses
+                where course.ID == id
+                select course
+                ).SingleOrDefault();
+            if(result == null)
                 return false;
-            }
 
-            _db.Courses.Remove(course);
+            _db.Courses.Remove(result);
             _db.SaveChanges();
 
             return true;
         }
 
-
         /// <summary>
-        ///         TODO
+        /// Updates a pre-existing Course with new info
         /// </summary>
-        /// <param name="model"></param>
-        public void AddCourse(AddCourseViewModel model)
-        {
-            
-        }
-
+        /// <param name="id">
+        /// The ID of the course to edit
+        /// Example: 1
+        ///</param>
+        /// <param name="model">
+        /// Accepts an EditCourseViewModel with the following parameters:
+        /// CourseID: required string - example: T-514-VEFT
+        /// Name: required string - example: Vefþjónustur
+        /// StartDate: optional string - example: 05092016
+        /// EndDate: optional string - example: 05092016
+        /// </param>
+        /// <returns></returns>
         public bool EditCourseByID(int id, EditCourseViewModel model)
         {
-             var course = (from c in _db.Courses
-                            where c.ID == id
-                            select c).SingleOrDefault();
+             var result = (
+                from course in _db.Courses
+                where course.ID == id
+                select course
+                ).SingleOrDefault();
             
-            if(course == null)
-            {
+            if(result == null)
                 return false;
-            }
-            course.StartDate = model.StartDate;
-            course.EndDate = model.EndDate;
+            
+            // Are we forgetting to actually implement the editing?
+            
+            Console.WriteLine(result);
+
+            result.StartDate = model.StartDate;
+            result.EndDate = model.EndDate;
             _db.SaveChanges();
 
             return true;

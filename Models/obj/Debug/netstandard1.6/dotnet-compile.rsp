@@ -56,6 +56,8 @@
 --reference:C:\Users\Andri Rafn\.nuget\packages\System.Threading.Timer\4.0.1\ref\netstandard1.2\System.Threading.Timer.dll
 --reference:C:\Users\Andri Rafn\.nuget\packages\System.Xml.ReaderWriter\4.0.11\ref\netstandard1.3\System.Xml.ReaderWriter.dll
 --reference:C:\Users\Andri Rafn\.nuget\packages\System.Xml.XDocument\4.0.11\ref\netstandard1.3\System.Xml.XDocument.dll
-C:\veft\Veft_Assign2\Models\AddCourseViewModel.cs
-C:\veft\Veft_Assign2\Models\CourseLiteDTO.cs
+C:\veft\Veft_Assign2\Models\AddStudentViewModel.cs
+C:\veft\Veft_Assign2\Models\CourseDetailDTO.cs
+C:\veft\Veft_Assign2\Models\CourseSimpleDTO.cs
+C:\veft\Veft_Assign2\Models\EditCourseViewModel.cs
 C:\veft\Veft_Assign2\Models\StudentLiteDTO.cs

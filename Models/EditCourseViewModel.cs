@@ -4,19 +4,29 @@ namespace assign2.Models
 {
     public class EditCourseViewModel
     {
-         /// <summary>
-        /// Primary key in db
+        /// <summary>
+        /// ID value stored in CoursesTemplates
         /// </summary>
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         /// <summary>
-        /// 
+        /// CourseID value stored in CoursesTemplates
         /// </summary>
-        public DateTime StartDate { get; set; }
+        public string CourseID { get; set; }
 
         /// <summary>
-        /// 
+        /// CourseID value stored in CoursesTemplates
         /// </summary>
-        public DateTime EndDate { get; set; }
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Start date stored in Courses
+        /// </summary>
+        public string StartDate { get; set; }
+
+        /// <summary>
+        /// End date stored in Courses
+        /// </summary>
+        public string EndDate { get; set; }
     }
 }

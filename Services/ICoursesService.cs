@@ -5,8 +5,8 @@ namespace assign2.Services
 {
     public interface ICoursesService
     {
-        List<CourseLiteDTO> GetCoursesBySemester(string semester);
-        CourseLiteDTO GetCourseByID(int id);
+        List<CourseSimpleDTO> GetCoursesBySemester(string semester);
+        CourseSimpleDTO GetCourseByID(int id);
         bool DeleteCourseByID(int id);
         bool EditCourseByID(int id, EditCourseViewModel model);
     }

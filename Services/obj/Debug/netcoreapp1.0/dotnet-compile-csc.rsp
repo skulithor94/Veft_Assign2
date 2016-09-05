@@ -117,4 +117,6 @@
 "C:\veft\Veft_Assign2\Services\CoursesService.cs"
 "C:\veft\Veft_Assign2\Services\ICoursesService.cs"
 "C:\veft\Veft_Assign2\Services\Entities\Course.cs"
+"C:\veft\Veft_Assign2\Services\Entities\CourseStudents.cs"
 "C:\veft\Veft_Assign2\Services\Entities\CourseTemplate.cs"
+"C:\veft\Veft_Assign2\Services\Entities\Student.cs"

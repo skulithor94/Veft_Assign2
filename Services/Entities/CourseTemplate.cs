@@ -1,3 +1,4 @@
+
 namespace assign2.Services.Entities
 {
     public class CourseTemplate
@@ -11,6 +12,11 @@ namespace assign2.Services.Entities
         /// 
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string CourseID { get; set; }
 
     }
 }
