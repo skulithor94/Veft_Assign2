@@ -1,5 +1,11 @@
 # Veft_Assign2
 
+Summary Folder Overview:
+    API         - Core project, this is what the client interacts with.
+    Models      - Library storage for Models.
+    Services    - Library storage for Services.
+
+
 - [ ] XML documentation (20%)
     - [ ] API methods
     - [ ] Model Classes
