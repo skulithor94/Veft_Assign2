@@ -23,3 +23,28 @@ Summary Folder Overview:
     - [ ] Do not expose entity classes outside of the API
     - [ ] Use DTO/Viewmodel classes for return, applies to the above
 
+- [ ] ROUTE SUPPORT
+    - [ ] /api/courses - GET
+        - [ ] Should return "T-514-VEFT" "20163"
+    - [ ] /api/courses?semester=20153
+        - [ ] Should return "T-514-VEFT" and "T-111-PROG" both "20153" 
+    - [ ] /api/courses/1 - GET
+        - [ ] Should return a more detailed object describing "T-514-VEFT", taught in "20153"
+    - [ ] /api/courses/999- GET
+        - [ ] Should return HTTP 404
+    - [ ] /api/courses/1 - PUT
+        - [ ] Should allow the client of the API to modify the given course instance.
+        - [ ] CourseID and Semester are required
+        - [ ] StartDate and EndDate are not required as parameters
+    - [ ] /api/courses/999 - PUT
+        - [ ] Should return 404
+    - [ ] /api/courses/1 - DELETE
+        - [ ] Should remove the given course
+    - [ ] /api/courses/999 - DELETE
+        - [ ] Should return 404
+    - [ ] /api/courses/1/students - GET
+        - [ ] Should return a list of all students in "T-514-VEFT" taught in "20153"
+    - [ ] /api/courses/2/students - POST
+        - [ ] Should add a new student to T-514-VEFT in 20163.
+        - [ ] Request body should contain the SSN of the student 
+     
