@@ -10,7 +10,7 @@ namespace assign2.Services.Entities
         public int ID { get; set; }
 
         /// <summary>
-        /// /// 
+        /// Represents which semester the course is taught at
         /// </summary>
         public string Semester { get; set; }
 

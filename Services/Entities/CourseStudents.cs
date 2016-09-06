@@ -7,16 +7,16 @@ namespace assign2.Services.Entities
         /// <summary>
         /// Primary key in db
         /// </summary>
-        public string ID { get; set; }
+        public int ID { get; set; }
 
         /// <summary>
         /// Foreign key to Course table
         /// </summary>
-        public string StudentSSN { get; set; }
+        public int StudentID { get; set; }
 
         /// <summary>
         /// Foreign key to Course table
         /// </summary>
-        public string CourseID { get; set; }
+        public int CourseID { get; set; }
     }
 }
