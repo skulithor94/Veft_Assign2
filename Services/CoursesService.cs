@@ -213,7 +213,7 @@ namespace assign2.Services
 
             CourseStudent cs = new CourseStudent
             {
-                StudentSSN = student.SSN,
+                StudentID = result2.ID,
                 CourseID   = id
             };
 
