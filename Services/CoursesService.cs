@@ -137,6 +137,39 @@ namespace assign2.Services
             _db.SaveChanges();
 
             return true;
+        }
+
+        /// <summary>
+        /// Add a student to a course.
+        /// </summary>
+        /// <param name="id">
+        /// The id of the course the student should be added to.
+        /// </param>
+        /// <param name="student"> 
+        /// The student that should be added to the course that 'id' referes to.
+        /// The student is identified by it's SSN
+        /// SSN example: 0902892069
+        /// </param>
+        public void AddStudentToCourseByID(int id, AddStudentViewModel student)
+        {
+            if(student == null)
+                throw new NoStudentException();
+
+            var result = (
+                from course in _db.Courses
+                where course.ID == id
+                select course
+                ).SingleOrDefault();
+            
+            if(result == null)
+                throw new NoCourseException();
+            
+            var result2 = (
+                from s in _db.Students
+                where s.SSN = student.SSN
+                select s
+                ).SingleOrDefault();   
+            )
         }        
     }
 }
