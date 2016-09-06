@@ -27,5 +27,10 @@ namespace assign2.Models
         /// Example: "20163"
         /// </summary>        
         public string Semester { get; set; }    
+
+        /// <summary>
+        /// A collection that represents students taking the course
+        /// </summary>
+        public ICollection<Student> Students { get; set; }
     }
 }

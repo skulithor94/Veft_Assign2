@@ -5,11 +5,6 @@ namespace assign2.Models
     public class EditCourseViewModel
     {
         /// <summary>
-        /// ID value stored in CoursesTemplates
-        /// </summary>
-        public string ID { get; set; }
-
-        /// <summary>
         /// CourseID value stored in CoursesTemplates
         /// </summary>
         public string CourseID { get; set; }

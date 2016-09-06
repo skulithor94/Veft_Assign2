@@ -28,7 +28,5 @@ namespace assign2.Services.Entities
         /// A nullable End Date
         /// </summary>
         public string EndDate { get; set; }
-
-        public virtual ICollection<Student> Students { get; set; }
     }
 }
