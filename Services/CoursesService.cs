@@ -5,13 +5,9 @@ using assign2.Services.Entities;
 using System;
 
 /*
-	Note: Getum semsagt bara skrifað þetta allt hérna, ég hendi þessu svo bara í VS Code hjá mér og runna til að testa
-  Pros: Engar líkur á merge villum á git, engar líkur á því að við vinnum í því sama :)
-  
-	TODO:
-      (\ /)
-      ( ♦ ♦) ♥ 
-      c(”)(”)
+                                                                          (\ /)		Wot is this
+                                                                         ( . .) ♥ 	I see here
+                                                                        c(”)(”)				Below me?
   	---------------------------------------------------------------------------
   	- Global: 
     	-	Nota throw error á edge keisum sem verða svo gripin í API
@@ -44,7 +40,7 @@ using System;
     	- Return students in course using LINQ
       - Test
     ---------------------------------------------------------------------------
-    - AddStudentToCourseByID: 
+    - AddStudentToCourseByID: Skúli
     	- Add existing student to course, save to DB 
       - Throw error if student doesn't exist
       - Test
@@ -95,6 +91,16 @@ namespace assign2.Services
                     Semester = course.Semester
                 }).ToList();
 
+                foreach(var item in result){
+                    var count = (
+                        from courseStudent in _db.CourseStudents
+                        where courseStudent == item.ID
+                        select *
+                    );
+
+                    Console.WriteLine(count);
+                }
+          		
                 // append number of students to this
                 
                 return result;
@@ -109,6 +115,7 @@ namespace assign2.Services
         /// </returns>
         public CourseSimpleDTO GetCourseByID(int id)
         {
+          	// Blocking build error, needs to return something
             return new CourseSimpleDTO();
         }
 
@@ -174,6 +181,12 @@ namespace assign2.Services
             _db.SaveChanges();
 
             return true;
-        }        
+        }     
+      
+      
+      	public void AddStudentToCourseByID(int id, AddStudentViewModel student)
+        {
+          
+        }
     }
 }

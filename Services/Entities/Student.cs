@@ -7,6 +7,11 @@ namespace assign2.Services.Entities
         /// <summary>
         /// Primary key in db
         /// </summary>
+        public int ID {get; set; }
+        
+        /// <summary>
+        /// Represents the students SSN
+        /// </summary>
         public string SSN { get; set; }
 
         /// <summary>
