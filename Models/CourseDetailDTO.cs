@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+
 
 namespace assign2.Models
 {
@@ -31,6 +32,6 @@ namespace assign2.Models
         /// <summary>
         /// A collection that represents students taking the course
         /// </summary>
-        public ICollection<Student> Students { get; set; }
+        public ICollection<StudentLiteDTO> Students { get; set; }
     }
 }

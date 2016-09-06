@@ -4,6 +4,53 @@ using assign2.Models;
 using assign2.Services.Entities;
 using System;
 
+/*
+	Note: Getum semsagt bara skrifað þetta allt hérna, ég hendi þessu svo bara í VS Code hjá mér og runna til að testa
+  Pros: Engar líkur á merge villum á git, engar líkur á því að við vinnum í því sama :)
+  
+	TODO:
+      (\ /)
+      ( ♦ ♦) ♥ 
+      c(”)(”)
+  	---------------------------------------------------------------------------
+  	- Global: 
+    	-	Nota throw error á edge keisum sem verða svo gripin í API
+      - Test
+  	---------------------------------------------------------------------------
+  	-	GetCoursesBySemester: Andri
+    	-	Use LINQ to count students per Course and append to result
+      - Find Error Cases
+      - Test      
+  	---------------------------------------------------------------------------
+    -	GetCourseByID: 
+    	- Fetch single Course using LINQ to CourseDetailDTO
+    	-	Use LINQ to get students per Course and append to list to result
+      	- consider calling an external function for this if possible
+        - GetStudentByCourseID should have the same functionality
+      - Find Error Cases
+      - Test
+    ---------------------------------------------------------------------------
+    - DeleteCourseByID: 
+      - Find Error Cases
+    	- Test
+    ---------------------------------------------------------------------------
+    - EditCourseByID: 
+     	- Update fields in Course table
+      - Update fields in CourseTemplate table
+      - Find Error Cases
+    	- Test
+    ---------------------------------------------------------------------------
+    - GetStudentByCourseID: 
+    	- Return students in course using LINQ
+      - Test
+    ---------------------------------------------------------------------------
+    - AddStudentToCourseByID: 
+    	- Add existing student to course, save to DB 
+      - Throw error if student doesn't exist
+      - Test
+    ---------------------------------------------------------------------------
+*/
+
 namespace assign2.Services
 {
     public class CoursesService : ICoursesService
@@ -48,8 +95,6 @@ namespace assign2.Services
                     Semester = course.Semester
                 }).ToList();
 
-
-
                 // append number of students to this
                 
                 return result;
@@ -64,18 +109,7 @@ namespace assign2.Services
         /// </returns>
         public CourseSimpleDTO GetCourseByID(int id)
         {
-            return (
-                from course in _db.Courses                
-                join courseTemplate in _db.CoursesTemplates on course.TemplateID equals courseTemplate.ID
-                where course.ID == id
-
-                select new CourseSimpleDTO
-                {
-                    ID = course.ID,
-                    Name = courseTemplate.Name,
-                    CourseID = courseTemplate.CourseID,
-                    Semester = course.Semester
-                }).SingleOrDefault();
+            return new CourseSimpleDTO();
         }
 
         /// <summary>
@@ -88,6 +122,8 @@ namespace assign2.Services
         /// </returns>
         public bool DeleteCourseByID(int id)
         {
+            // TEST
+            
             var result = (
                 from course in _db.Courses
                 where course.ID == id
@@ -128,7 +164,8 @@ namespace assign2.Services
             if(result == null)
                 return false;
             
-            // Are we forgetting to actually implement the editing?
+            // Implement Course update
+          	// Implement CourseTemplate update
             
             Console.WriteLine(result);
 
