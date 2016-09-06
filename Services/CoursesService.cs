@@ -189,8 +189,8 @@ namespace assign2.Services
         /// </param>
         public void AddStudentToCourseByID(int id, AddStudentViewModel student)
         {
-            if(student == null)
-                throw new NoStudentException();
+            //if(student == null)
+                //throw new NoStudentException();
 
             var result = (
                 from course in _db.Courses
@@ -198,15 +198,27 @@ namespace assign2.Services
                 select course
                 ).SingleOrDefault();
             
-            if(result == null)
-                throw new NoCourseException();
+            //if(result == null)
+                //throw new NoCourseException();
             
             var result2 = (
                 from s in _db.Students
-                where s.SSN = student.SSN
+                where s.SSN == student.SSN
                 select s
                 ).SingleOrDefault();   
-            )
+            
+
+            //if(result2 == null)
+                //throw new NoStudentException();
+
+            CourseStudent cs = new CourseStudent
+            {
+                StudentSSN = student.SSN,
+                CourseID   = id
+            };
+
+            _db.CourseStudents.Add(cs);
+            _db.SaveChanges();
         }        
     }
 }
