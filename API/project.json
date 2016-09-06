@@ -20,6 +20,9 @@
     },
     "Services": {
       "target": "project"
+    },
+    "Exceptions": {
+      "target": "project"
     }
   },
 

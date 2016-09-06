@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using assign2.Models; 
 using assign2.Services.Entities;
+using assign2.Exceptions;
 using System;
 
 /*
@@ -198,8 +199,7 @@ namespace assign2.Services
         {
             Console.Write(student);
             if(student == null)
-                return false; //temp
-                //throw new NoStudentException();
+                throw new NoStudentException("Student is null");
 
             var course = (
                 from c in _db.Courses
@@ -208,8 +208,7 @@ namespace assign2.Services
                 ).SingleOrDefault();
             
             if(course == null)
-                return false; //temp
-                //throw new NoCourseException();
+                throw new NoCourseException("Course not found");
             
             var studentInCourse = (
                 from s in _db.Students
@@ -218,20 +217,18 @@ namespace assign2.Services
                 ).SingleOrDefault();   
             
 
-            if(studentInCourse == null)
-                return false; //temp    
-                //throw new NoStudentException();
+            if(studentInCourse == null)    
+                throw (new NoStudentException("Student not found"));
 
             var result = (
                 from s in _db.CourseStudents
                 where s.CourseID == course.ID
                 && s.StudentID == studentInCourse.ID 
                 select s
-            ).SingleOrDefault(); //So sql doesn't throw an error if there are more than one
+            ).SingleOrDefault(); 
 
             if(result != null)
-                return false;
-                //throw new ConnectionExistsException();
+                throw new ConnectionExistsException("Student and course already connected");
 
             CourseStudent cs = new CourseStudent
             {
