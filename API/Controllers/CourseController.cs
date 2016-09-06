@@ -50,8 +50,14 @@ namespace assign2.API.Controllers
 
         [HttpPost]
         [Route("{id:int}/students")]
-        public void AddStudentToCourse(int id, [FromBody]string value)
+        public IActionResult AddStudentToCourse(int id, [FromBody]AddStudentViewModel model)
         {
+            bool added = _service.AddStudentToCourseByID(id, model);
+            if(added)
+            {
+                return new NoContentResult();
+            }
+            return NotFound();
         }
 
         [HttpPut]

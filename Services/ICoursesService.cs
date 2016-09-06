@@ -9,5 +9,6 @@ namespace assign2.Services
         CourseSimpleDTO GetCourseByID(int id);
         bool DeleteCourseByID(int id);
         bool EditCourseByID(int id, EditCourseViewModel model);
+        bool AddStudentToCourseByID(int id, AddStudentViewModel student);
     }
 }

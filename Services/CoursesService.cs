@@ -194,9 +194,10 @@ namespace assign2.Services
         /// The student is identified by it's SSN
         /// SSN example: 0902892069
         /// </param>
-        public void AddStudentToCourseByID(int id, AddStudentViewModel student)
+        public bool AddStudentToCourseByID(int id, AddStudentViewModel student)
         {
-            //if(student == null)
+            if(student == null)
+                return false; //temp
                 //throw new NoStudentException();
 
             var result = (
@@ -205,7 +206,8 @@ namespace assign2.Services
                 select course
                 ).SingleOrDefault();
             
-            //if(result == null)
+            if(result == null)
+                return false; //temp
                 //throw new NoCourseException();
             
             var result2 = (
@@ -215,7 +217,8 @@ namespace assign2.Services
                 ).SingleOrDefault();   
             
 
-            //if(result2 == null)
+            if(result2 == null)
+                return false; //temp    
                 //throw new NoStudentException();
 
             CourseStudent cs = new CourseStudent
@@ -226,6 +229,8 @@ namespace assign2.Services
 
             _db.CourseStudents.Add(cs);
             _db.SaveChanges();
+
+            return true;
         }        
 
     }
