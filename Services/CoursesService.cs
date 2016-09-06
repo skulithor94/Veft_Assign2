@@ -196,34 +196,46 @@ namespace assign2.Services
         /// </param>
         public bool AddStudentToCourseByID(int id, AddStudentViewModel student)
         {
+            Console.Write(student);
             if(student == null)
                 return false; //temp
                 //throw new NoStudentException();
 
-            var result = (
-                from course in _db.Courses
-                where course.ID == id
-                select course
+            var course = (
+                from c in _db.Courses
+                where c.ID == id
+                select c
                 ).SingleOrDefault();
             
-            if(result == null)
+            if(course == null)
                 return false; //temp
                 //throw new NoCourseException();
             
-            var result2 = (
+            var studentInCourse = (
                 from s in _db.Students
                 where s.SSN == student.SSN
                 select s
                 ).SingleOrDefault();   
             
 
-            if(result2 == null)
+            if(studentInCourse == null)
                 return false; //temp    
                 //throw new NoStudentException();
 
+            var result = (
+                from s in _db.CourseStudents
+                where s.CourseID == course.ID
+                && s.StudentID == studentInCourse.ID 
+                select s
+            ).SingleOrDefault(); //So sql doesn't throw an error if there are more than one
+
+            if(result != null)
+                return false;
+                //throw new ConnectionExistsException();
+
             CourseStudent cs = new CourseStudent
             {
-                StudentID = result2.ID,
+                StudentID = studentInCourse.ID,
                 CourseID   = id
             };
 
