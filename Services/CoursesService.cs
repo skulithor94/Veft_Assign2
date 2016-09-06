@@ -92,13 +92,13 @@ namespace assign2.Services
                 }).ToList();
 
                 foreach(var item in result){
-                    //var count = (
-                        /*from courseStudent in _db.CourseStudents
-                        where courseStudent == item.ID*/
-                        
-                    //);
-
-                    Console.WriteLine(item.Name);
+                    int count = (
+                        from courseStudent in _db.CourseStudents
+                        where courseStudent.CourseID == item.ID
+                        select courseStudent
+                    ).Count();
+                    item.Students = count;
+                    Console.WriteLine(item.Students);
                 }
           		
                 // append number of students to this
