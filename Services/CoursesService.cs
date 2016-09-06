@@ -98,7 +98,7 @@ namespace assign2.Services
                         
                     //);
 
-                    Console.WriteLine(item.name);
+                    Console.WriteLine(item.Name);
                 }
           		
                 // append number of students to this
