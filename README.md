@@ -29,24 +29,72 @@ Summary Model Type Overview:
 
 - [ ] ROUTE SUPPORT
     - [x] /api/courses - GET
-        - [x] returns:
-        ```
-        [
+        - [x] Returns:
+            ```
+            [
+                {
+                    "id": 1,
+                    "name": "Vefþjónustur",
+                    "courseID": "T-514-VEFT",
+                    "semester": "20163",
+                    "students": 3
+                }
+            ]
+            ```
+    - [x] /api/courses?semester=20153 - GET
+        - [x] Returns:
+            ```
+            [
+                {
+                    "id": 2,
+                    "name": "Forritun",
+                    "courseID": "T-111-PROG",
+                    "semester": "20153",
+                    "students": 3
+                },
+                {
+                    "id": 3,
+                    "name": "Vefþjónustur",
+                    "courseID": "T-514-VEFT",
+                    "semester": "20153",
+                    "students": 2
+                }
+            ]
+            ```
+    - [x] /api/courses/1 - GET
+        - [x] Returns:
+            ```
             {
                 "id": 1,
                 "name": "Vefþjónustur",
                 "courseID": "T-514-VEFT",
                 "semester": "20163",
-                "students": 3
+                "startDate": "",
+                "endDate": "",
+                "students": [
+                    {
+                    "id": 4,
+                    "name": "Jóna Halldórsdóttir",
+                    "ssn": "4567891230"
+                    },
+                    {
+                    "id": 2,
+                    "name": "Guðrún Jónsdóttir",
+                    "ssn": "9876543210"
+                    },
+                    {
+                    "id": 1,
+                    "name": "Jón Jónsson",
+                    "ssn": "1234567890"
+                    }
+                ]
             }
-        ]
-        ```
-    - [x] /api/courses?semester=20153
-        - [x] Should return "T-514-VEFT" and "T-111-PROG" both "20153" 
-    - [x] /api/courses/1 - GET
-        - [x] Should return a more detailed object describing "T-514-VEFT", taught in "20153"
-    - [x] /api/courses/999- GET
-        - [x] Should return HTTP 404
+            ```
+    - [x] /api/courses/999 - GET
+        - [x] Returns:
+            ```
+            Status: 404 Not Found
+            ```
     - [ ] /api/courses/1 - PUT
         - [ ] Should allow the client of the API to modify the given course instance.
         - [ ] CourseID and Semester are required
