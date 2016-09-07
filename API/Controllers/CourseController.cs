@@ -22,13 +22,35 @@ namespace assign2.API.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetCoursesOnSemester(string semester = null)
+        /// <summary>
+        /// Returns a list of simple versions of courses including a count of their students
+        /// The returned courses all belong to the semester passed or if no semester is passed
+        /// returns courses that belong to semester 2016
+        /// </summary>
+        /// <param name="semester">
+        /// string representing the Course semester
+        /// example: "20153"
+        /// </param>
+        /// <returns>
+        /// IActionResult
+        /// </returns>
+        public IActionResult GetCoursesBySemester(string semester = null)
         {
             return new ObjectResult(_service.GetCoursesBySemester(semester)); 
         }
 
         [HttpGet]
         [Route("{id:int}")]
+        /// <summary>
+        /// Returns a fully detailed course including a list with its students
+        /// </summary>
+        /// <param name="id">
+        /// integer representing the Course ID
+        /// example: 1
+        /// </param>
+        /// <returns>
+        /// IActionResult
+        /// </returns>
         public IActionResult GetCourseByID(int id)
         {
             var course = _service.GetCourseByID(id);
@@ -44,7 +66,17 @@ namespace assign2.API.Controllers
         
         [HttpGet]
         [Route("{id:int}/students")]
-        public IActionResult GetStudentsInCourse(int id  )
+        /// <summary>
+        /// Returns a list of students belonging to the course with the given ID
+        /// </summary>
+        /// <param name="id">
+        /// integer representing the Course ID
+        /// example: 1
+        /// </param>
+        /// <returns>
+        /// IActionResult
+        /// </returns>
+        public IActionResult GetStudentsByCourseID(int id  )
         {
             try
             {
@@ -59,7 +91,21 @@ namespace assign2.API.Controllers
 
         [HttpPost]
         [Route("{id:int}/students")]
-        public IActionResult AddStudentToCourse(int id, [FromBody]AddStudentViewModel model)
+        /// <summary>
+        /// Adds a student to the course with the given id
+        /// </summary>
+        /// <param name="id">
+        /// integer representing the Course ID
+        /// example: 1
+        /// </param>
+        /// <param name="model">
+        /// An AddStudentViewModel with the SSN of the student
+        /// example: { "SSN": "2302962315"}
+        /// </param>
+        /// <returns>
+        /// IActionResult
+        /// </returns>
+        public IActionResult AddStudentToCourseByID(int id, [FromBody]AddStudentViewModel model)
         {
             try
             {
@@ -84,7 +130,26 @@ namespace assign2.API.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}")]    
+        [Route("{id:int}")]
+        /// <summary>
+        /// Edit a course with the given id
+        /// </summary>
+        /// <param name="id">
+        /// integer representing the Course ID
+        /// example: 1
+        /// </param>
+        /// <param name="model">
+        /// An EditCourseViewModel with the SSN of the student
+        /// example: {
+        /// "CourseID": 1
+        /// "Name": "T-111-PROG"
+        /// "StartDate": "230416"
+        /// "EndDate": "230416"
+        /// }
+        /// </param>
+        /// <returns>
+        /// IActionResult
+        /// </returns>    
         public IActionResult EditCourseByID(int id, [FromBody]EditCourseViewModel model)
         {
             bool edited = _service.EditCourseByID(id, model);
@@ -97,6 +162,14 @@ namespace assign2.API.Controllers
         
         [HttpDelete]
         [Route("{id:int}")]
+        /// <summary>
+        /// Deletes the course with the given id
+        /// </summary>
+        /// <param name="id">
+        /// integer representing the Course ID
+        /// example: 1
+        /// </param>
+        /// <returns></returns>
         public IActionResult DeleteCourseByID(int id)
         {
             bool deleted = _service.DeleteCourseByID(id);
