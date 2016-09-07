@@ -13,12 +13,11 @@ using System;
     	-	Nota throw error á edge keisum sem verða svo gripin í API
       - Test
   	---------------------------------------------------------------------------
-  	-	GetCoursesBySemester: Andri
-    	-	Use LINQ to count students per Course and append to result
+  	- GetCoursesBySemester: Andri    	
       - Find Error Cases
       - Test      
   	---------------------------------------------------------------------------
-    -	GetCourseByID: 
+    -	GetCourseByID: Andri
     	- Fetch single Course using LINQ to CourseDetailDTO
     	-	Use LINQ to get students per Course and append to list to result
       	- consider calling an external function for this if possible
@@ -74,7 +73,6 @@ namespace assign2.Services
             if(semester == null)
                 semester = "20163";
 
-            // LINQ: joining the barebone course info with the detailed info
             var result = (
                 from course in _db.Courses
                 join courseTemplate in _db.CoursesTemplates                
@@ -91,19 +89,15 @@ namespace assign2.Services
                     Semester = course.Semester
                 }).ToList();
 
-                foreach(var item in result){
-                    int count = (
-                        from courseStudent in _db.CourseStudents
-                        where courseStudent.CourseID == item.ID
-                        select courseStudent
-                    ).Count();
-                    item.Students = count;
-                    Console.WriteLine(item.Students);
-                }
-          		
-                // append number of students to this
-                
-                return result;
+            foreach(var item in result){
+                int count = (
+                    from courseStudent in _db.CourseStudents
+                    where courseStudent.CourseID == item.ID
+                    select courseStudent
+                ).Count();
+                item.Students = count;
+            }
+            return result;
         }
 
         /// <summary>
@@ -113,10 +107,42 @@ namespace assign2.Services
         /// <returns>
         /// CourseSimpleDTO
         /// </returns>
-        public CourseSimpleDTO GetCourseByID(int id)
+        public CourseDetailDTO GetCourseByID(int id)
         {
-          	// Blocking build error, needs to return something
-            return new CourseSimpleDTO();
+          var result = (
+                from course in _db.Courses
+                join courseTemplate in _db.CoursesTemplates                
+                on course.TemplateID equals courseTemplate.ID
+                where course.ID == id
+                orderby courseTemplate.Name
+
+                // Mapping to a DTO
+                select new CourseDetailDTO
+                {
+                    ID = course.ID,                    
+                    Name = courseTemplate.Name,
+                    CourseID = courseTemplate.CourseID,
+                    Semester = course.Semester,
+                    StartDate = course.StartDate,
+                    EndDate = course.EndDate
+                }).FirstOrDefault();
+
+            
+            var students = (
+                from courseStudent in _db.CourseStudents
+                join student in _db.Students
+                on courseStudent.StudentID equals student.ID
+                where courseStudent.CourseID == result.ID
+                select new StudentLiteDTO
+                {
+                    ID = student.ID,
+                    Name = student.Name,
+                    SSN = student.SSN
+                }).ToList();
+
+            result.Students = students;
+
+            return result;
         }
 
         /// <summary>

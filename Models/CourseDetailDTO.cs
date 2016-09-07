@@ -27,7 +27,17 @@ namespace assign2.Models
         /// String representing the Semester of the course object
         /// Example: "20163"
         /// </summary>        
-        public string Semester { get; set; }    
+        public string Semester { get; set; }
+
+        /// <summary>
+        /// String representing the start date of the course
+        /// </summary>
+        public string StartDate { get; set; }
+
+        /// <summary>
+        /// String representing the end date of the course
+        /// </summary>
+        public string EndDate { get; set; }
 
         /// <summary>
         /// A collection that represents students taking the course
