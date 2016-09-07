@@ -29,7 +29,7 @@ Summary Model Type Overview:
 
 - [ ] ROUTE SUPPORT
     - [x] /api/courses - GET
-        - [x] returns 
+        - [x] returns:
         ```
         [
             {
