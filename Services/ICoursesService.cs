@@ -10,5 +10,6 @@ namespace assign2.Services
         bool DeleteCourseByID(int id);
         bool EditCourseByID(int id, EditCourseViewModel model);
         bool AddStudentToCourseByID(int id, AddStudentViewModel student);
+        List<StudentLiteDTO> GetStudentsByCourseID(int id);
     }
 }

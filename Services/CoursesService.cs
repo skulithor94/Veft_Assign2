@@ -16,7 +16,7 @@ using System;
   	---------------------------------------------------------------------------
   	- GetCoursesBySemester: Andri    	
       - Find Error Cases
-      - Test      
+      - Test
   	---------------------------------------------------------------------------
     -	GetCourseByID: Andri
     	- Fetch single Course using LINQ to CourseDetailDTO
@@ -26,7 +26,7 @@ using System;
       - Find Error Cases
       - Test
     ---------------------------------------------------------------------------
-    - DeleteCourseByID: 
+    - DeleteCourseByID:
       - Find Error Cases
     	- Test
     ---------------------------------------------------------------------------
@@ -36,7 +36,7 @@ using System;
       - Find Error Cases
     	- Test
     ---------------------------------------------------------------------------
-    - GetStudentByCourseID: 
+    - GetStudentByCourseID:
     	- Return students in course using LINQ
       - Test
     ---------------------------------------------------------------------------
@@ -81,7 +81,6 @@ namespace assign2.Services
                 where course.Semester == semester
                 orderby courseTemplate.Name
 
-                // Mapping to a DTO
                 select new CourseSimpleDTO
                 {
                     ID = course.ID,                    
@@ -128,20 +127,9 @@ namespace assign2.Services
                     EndDate = course.EndDate
                 }).FirstOrDefault();
 
-            
-            var students = (
-                from courseStudent in _db.CourseStudents
-                join student in _db.Students
-                on courseStudent.StudentID equals student.ID
-                where courseStudent.CourseID == result.ID
-                select new StudentLiteDTO
-                {
-                    ID = student.ID,
-                    Name = student.Name,
-                    SSN = student.SSN
-                }).ToList();
-
-            result.Students = students;
+            if(result != null){
+                result.Students = GetStudentsByCourseID(id);;
+            }
 
             return result;
         }
@@ -156,9 +144,7 @@ namespace assign2.Services
         /// </returns>
         public bool DeleteCourseByID(int id)
         {
-            // TEST
-            
-            var result = (
+                var result = (
                 from course in _db.Courses
                 where course.ID == id
                 select course
@@ -208,6 +194,24 @@ namespace assign2.Services
             _db.SaveChanges();
 
             return true;
+        }
+
+        
+        public List<StudentLiteDTO> GetStudentsByCourseID(int id)
+        {
+            var students = (
+                from courseStudent in _db.CourseStudents
+                join student in _db.Students
+                on courseStudent.StudentID equals student.ID
+                where courseStudent.CourseID == id
+                select new StudentLiteDTO
+                {
+                    ID = student.ID,
+                    Name = student.Name,
+                    SSN = student.SSN
+                }).ToList();
+                
+            return students;
         }
 
         /// <summary>
