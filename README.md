@@ -1,5 +1,9 @@
 # Veft_Assign2
-
+```
+(\ /)	PLEASE READ ME
+( . .) ♥ PLEAAAASE!!
+c(”)(”)
+```
 Summary Folder Overview:
     API         - Core project, this is what the client interacts with.
     Models      - Library storage for Models.
