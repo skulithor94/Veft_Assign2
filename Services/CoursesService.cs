@@ -8,7 +8,7 @@ using System;
 /*
                                                                           (\ /)		Wot is this
                                                                          ( . .) ♥ 	I see here
-                                                                        c(”)(”)				Below me?
+                                                                        c(”)(”)	   Below me?
   	---------------------------------------------------------------------------
   	- Global: 
     	-	Nota throw error á edge keisum sem verða svo gripin í API
@@ -59,14 +59,16 @@ namespace assign2.Services
         }
 
         /// <summary>
-        /// Gets a list of courses that all belong to the same semester
+        /// Returns a list of simple versions of courses including a count of their students
+        /// The returned courses all belong to the semester passed or if no semester is passed
+        /// returns courses that belong to semester 2016
         /// </summary>
         /// <param name="semester">
-        /// An optional string representing the semester,
-        /// if skipped the request will default semester to 20163
+        /// string representing the Course semester
+        /// example: "20153"
         /// </param>
         /// <returns>
-        ///  List<CourseSimpleDTO>
+        /// List<CourseSimpleDTO>
         /// </returns>
         public List<CourseSimpleDTO> GetCoursesBySemester(string semester)
         {
@@ -99,13 +101,16 @@ namespace assign2.Services
             }
             return result;
         }
-
+        
         /// <summary>
-        /// Gets a single course that has the given id
+        /// Returns a fully detailed course including a list with its students
         /// </summary>
-        /// <param name="id">An integer representing the course id</param>
+        /// <param name="id">
+        /// integer representing the Course ID
+        /// example: 1
+        /// </param>
         /// <returns>
-        /// CourseSimpleDTO
+        /// CourseDetailDTO
         /// </returns>
         public CourseDetailDTO GetCourseByID(int id)
         {
@@ -135,68 +140,15 @@ namespace assign2.Services
         }
 
         /// <summary>
-        /// Deletes a single course that has the given id, 
-        /// returning true on a successful delete, false otherwise
-        /// </summary>
-        /// <param name="id">An integer representing the course id</param>
-        /// <returns>
-        /// bool
-        /// </returns>
-        public bool DeleteCourseByID(int id)
-        {
-                var result = (
-                from course in _db.Courses
-                where course.ID == id
-                select course
-                ).SingleOrDefault();
-            if(result == null)
-                return false;
-
-            _db.Courses.Remove(result);
-            _db.SaveChanges();
-
-            return true;
-        }
-
-        /// <summary>
-        /// Updates a pre-existing Course with new info
+        /// Returns a list of students belonging to the course with the given ID
         /// </summary>
         /// <param name="id">
-        /// The ID of the course to edit
-        /// Example: 1
-        ///</param>
-        /// <param name="model">
-        /// Accepts an EditCourseViewModel with the following parameters:
-        /// CourseID: required string - example: T-514-VEFT
-        /// Name: required string - example: Vefþjónustur
-        /// StartDate: optional string - example: 05092016
-        /// EndDate: optional string - example: 05092016
+        /// integer representing the Course ID
+        /// example: 1
         /// </param>
-        /// <returns></returns>
-        public bool EditCourseByID(int id, EditCourseViewModel model)
-        {
-             var result = (
-                from course in _db.Courses
-                where course.ID == id
-                select course
-                ).SingleOrDefault();
-            
-            if(result == null)
-                return false;
-            
-            // Implement Course update
-          	// Implement CourseTemplate update
-            
-            Console.WriteLine(result);
-
-            result.StartDate = model.StartDate;
-            result.EndDate = model.EndDate;
-            _db.SaveChanges();
-
-            return true;
-        }
-
-        
+        /// <returns>
+        /// List<StudentLiteDTO>
+        /// </returns>
         public List<StudentLiteDTO> GetStudentsByCourseID(int id)
         {
             var students = (
@@ -210,21 +162,24 @@ namespace assign2.Services
                     Name = student.Name,
                     SSN = student.SSN
                 }).ToList();
-                
+
             return students;
         }
 
         /// <summary>
-        /// Add a student to a course.
+        /// Adds a student to the course with the given id
         /// </summary>
         /// <param name="id">
-        /// The id of the course the student should be added to.
+        /// integer representing the Course ID
+        /// example: 1
         /// </param>
-        /// <param name="student"> 
-        /// The student that should be added to the course that 'id' referes to.
-        /// The student is identified by it's SSN
-        /// SSN example: 0902892069
+        /// <param name="model">
+        /// An AddStudentViewModel with the SSN of the student
+        /// example: { "SSN": "2302962315"}
         /// </param>
+        /// <returns>
+        /// bool
+        /// </returns>
         public bool AddStudentToCourseByID(int id, AddStudentViewModel student)
         {
             Console.Write(student);
@@ -270,7 +225,75 @@ namespace assign2.Services
             _db.SaveChanges();
 
             return true;
-        }        
+        }
+
+        /// <summary>
+        /// Edit a course with the given id
+        /// </summary>
+        /// <param name="id">
+        /// integer representing the Course ID
+        /// example: 1
+        /// </param>
+        /// <param name="model">
+        /// An EditCourseViewModel with the SSN of the student
+        /// example: {
+        /// "CourseID": 1
+        /// "Name": "T-111-PROG"
+        /// "StartDate": "230416"
+        /// "EndDate": "230416"
+        /// }
+        /// </param>
+        /// <returns>
+        /// bool
+        /// </returns>   
+        public bool EditCourseByID(int id, EditCourseViewModel model)
+        {
+             var result = (
+                from course in _db.Courses
+                where course.ID == id
+                select course
+                ).SingleOrDefault();
+            
+            if(result == null)
+                return false;
+            
+            // Implement Course update
+          	// Implement CourseTemplate update
+            
+            Console.WriteLine(result);
+
+            result.StartDate = model.StartDate;
+            result.EndDate = model.EndDate;
+            _db.SaveChanges();
+
+            return true;
+        } 
+
+        /// <summary>
+        /// Deletes the course with the given id
+        /// </summary>
+        /// <param name="id">
+        /// integer representing the Course ID
+        /// example: 1
+        /// </param>
+        /// <returns>
+        /// bool
+        /// </returns>
+        public bool DeleteCourseByID(int id)
+        {
+                var result = (
+                from course in _db.Courses
+                where course.ID == id
+                select course
+                ).SingleOrDefault();
+            if(result == null)
+                return false;
+
+            _db.Courses.Remove(result);
+            _db.SaveChanges();
+
+            return true;
+        }       
 
     }
 }

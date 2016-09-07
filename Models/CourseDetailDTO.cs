@@ -31,11 +31,13 @@ namespace assign2.Models
 
         /// <summary>
         /// String representing the start date of the course
+        /// Example: "230416"
         /// </summary>
         public string StartDate { get; set; }
 
         /// <summary>
         /// String representing the end date of the course
+        /// Example: "230416"
         /// </summary>
         public string EndDate { get; set; }
 
