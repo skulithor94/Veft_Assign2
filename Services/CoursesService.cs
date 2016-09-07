@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using assign2.Models; 
 using assign2.Services.Entities;
+using assign2.Exceptions;
 using System;
 
 /*
@@ -207,12 +208,65 @@ namespace assign2.Services
             _db.SaveChanges();
 
             return true;
-        }     
-      
-      
-      	public void AddStudentToCourseByID(int id, AddStudentViewModel student)
-        {
-          
         }
+
+        /// <summary>
+        /// Add a student to a course.
+        /// </summary>
+        /// <param name="id">
+        /// The id of the course the student should be added to.
+        /// </param>
+        /// <param name="student"> 
+        /// The student that should be added to the course that 'id' referes to.
+        /// The student is identified by it's SSN
+        /// SSN example: 0902892069
+        /// </param>
+        public bool AddStudentToCourseByID(int id, AddStudentViewModel student)
+        {
+            Console.Write(student);
+            if(student == null)
+                throw new NoStudentException("Student is null");
+
+            var course = (
+                from c in _db.Courses
+                where c.ID == id
+                select c
+                ).SingleOrDefault();
+            
+            if(course == null)
+                throw new NoCourseException("Course not found");
+            
+            var studentInCourse = (
+                from s in _db.Students
+                where s.SSN == student.SSN
+                select s
+                ).SingleOrDefault();   
+            
+
+            if(studentInCourse == null)    
+                throw (new NoStudentException("Student not found"));
+
+            var result = (
+                from s in _db.CourseStudents
+                where s.CourseID == course.ID
+                && s.StudentID == studentInCourse.ID 
+                select s
+            ).SingleOrDefault(); 
+
+            if(result != null)
+                throw new ConnectionExistsException("Student and course already connected");
+
+            CourseStudent cs = new CourseStudent
+            {
+                StudentID = studentInCourse.ID,
+                CourseID   = id
+            };
+
+            _db.CourseStudents.Add(cs);
+            _db.SaveChanges();
+
+            return true;
+        }        
+
     }
 }

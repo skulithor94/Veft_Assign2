@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using assign2.Models;
 using assign2.Services;
+using assign2.Exceptions;
 
 namespace assign2.API.Controllers
 {
@@ -50,8 +51,28 @@ namespace assign2.API.Controllers
 
         [HttpPost]
         [Route("{id:int}/students")]
-        public void AddStudentToCourse(int id, [FromBody]string value)
+        public IActionResult AddStudentToCourse(int id, [FromBody]AddStudentViewModel model)
         {
+            try
+            {
+                _service.AddStudentToCourseByID(id, model);
+                return new NoContentResult();
+            }
+            catch (NoStudentException e)
+            {
+                Console.Write(e.Message);
+                return NotFound();
+            } 
+            catch (NoCourseException e2)
+            {
+                Console.Write(e2.Message);
+                return NotFound();
+            }
+            catch (ConnectionExistsException e3)
+            {
+                Console.Write(e3.Message);
+                return NotFound();
+            }
         }
 
         [HttpPut]

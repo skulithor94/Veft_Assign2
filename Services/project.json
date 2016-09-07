@@ -11,6 +11,9 @@
     },
     "Models": {
       "target": "project"
+    }, 
+    "Exceptions":{
+      "target": "project"
     }
   },
   "frameworks": {
