@@ -10,22 +10,22 @@ Summary Model Type Overview:
     ViewModel:  Data the API accepts from a client
     Entity:     Class that maps to a database   
 
-- [ ] XML documentation (20%)
-    - [ ] API methods
-    - [ ] Model Classes
-    - [ ] Include description
-    - [ ] Include example value for property description
-- [ ] Service (20%)
-    - [ ] Seperate class library for business logic
-- [ ] SQL (20%)
-    - [ ] Store data in an SQL database
-    - [ ] Write all queries in LINQ
+- [x] XML documentation (20%)
+    - [x] API methods
+    - [x] Model Classes
+    - [x] Include description
+    - [x] Include example value for property description
+- [x] Service (20%)
+    - [x] Seperate class library for business logic
+- [x] SQL (20%)
+    - [x] Store data in an SQL database
+    - [x] Write all queries in LINQ
 - [x] Semester property for Courses (20%)
     - [x] Query for specific semesters
     - [x] If no query default to 20163
-- [ ] Models (20%)
-    - [ ] Do not expose entity classes outside of the API
-    - [ ] Use DTO/Viewmodel classes for return, applies to the above
+- [x] Models (20%)
+    - [x] Do not expose entity classes outside of the API
+    - [x] Use DTO/Viewmodel classes for return, applies to the above
 
 - [ ] ROUTE SUPPORT
     - [x] /api/courses - GET
