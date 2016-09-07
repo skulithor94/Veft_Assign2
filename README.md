@@ -30,6 +30,7 @@ Summary Model Type Overview:
 - [ ] ROUTE SUPPORT
     - [x] /api/courses - GET
         - [x] returns 
+        ```
         [
             {
                 "id": 1,
@@ -39,6 +40,7 @@ Summary Model Type Overview:
                 "students": 3
             }
         ]
+        ```
     - [x] /api/courses?semester=20153
         - [x] Should return "T-514-VEFT" and "T-111-PROG" both "20153" 
     - [x] /api/courses/1 - GET
