@@ -44,9 +44,17 @@ namespace assign2.API.Controllers
         
         [HttpGet]
         [Route("{id:int}/students")]
-        public List<StudentLiteDTO> GetStudentsInCourse()
+        public IActionResult GetStudentsInCourse(int id  )
         {
-            return null;
+            try
+            {
+                return new ObjectResult(_service.GetStudentsByCourseID(id));
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
         }
 
         [HttpPost]
