@@ -12,7 +12,7 @@ namespace assign2.Services
     {
         public DbSet<Course>         Courses          {get; set;}
         public DbSet<CourseTemplate> CoursesTemplates {get; set;}
-        public DbSet<CourseStudent> CourseStudents   {get; set;}
+        public DbSet<CourseStudent>  CourseStudents   {get; set;}
         public DbSet<Student>        Students         {get; set;}
 
         public AppDataContext(DbContextOptions<AppDataContext> options)

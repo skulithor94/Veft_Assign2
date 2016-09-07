@@ -95,19 +95,24 @@ Summary Model Type Overview:
         ```
         Status: 404 Not Found
         ```
-    - [ ] /api/courses/1 - PUT
-        - [ ] Should allow the client of the API to modify the given course instance.
-        - [ ] CourseID and Semester are required
-        - [ ] StartDate and EndDate are not required as parameters
-    - [ ] /api/courses/999 - PUT
-        - [ ] Should return 404
-    - [ ] /api/courses/1 - DELETE
-        - [ ] Should remove the given course
-    - [ ] /api/courses/999 - DELETE
-        - [ ] Should return 404
-    - [ ] /api/courses/1/students - GET
-        - [ ] Should return a list of all students in "T-514-VEFT" taught in "20153"
-    - [ ] /api/courses/2/students - POST
-        - [ ] Should add a new student to T-514-VEFT in 20163.
-        - [ ] Request body should contain the SSN of the student 
+    - [x] /api/courses/1 - PUT
+        - [x] Should allow the client of the API to modify the given course instance.
+        - [x] StartDate and EndDate are the only values that can be changed
+    - [x] /api/courses/999 - PUT
+        - [x] Returns:
+        ```
+        Status: 404 Not Found
+        ```
+    - [x] /api/courses/1 - DELETE
+        - [x] Should remove the given course
+    - [x] /api/courses/999 - DELETE
+        - [x] Returns:
+        ```
+        Status: 404 Not Found
+        ```
+    - [x] /api/courses/1/students - GET
+        - [x] Should return a list of all students in "T-514-VEFT" taught in "20153"
+    - [x] /api/courses/2/students - POST
+        - [x] Should add a new student to T-514-VEFT in 20163.
+        - [x] Request body should contain the SSN of the student 
      

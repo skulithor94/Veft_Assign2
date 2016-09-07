@@ -6,44 +6,9 @@ using assign2.Exceptions;
 using System;
 
 /*
-                                                                          (\ /)		Wot is this
-                                                                         ( . .) ♥ 	I see here
-                                                                        c(”)(”)	   Below me?
-  	---------------------------------------------------------------------------
-  	- Global: 
-    	-	Nota throw error á edge keisum sem verða svo gripin í API
-      - Test
-  	---------------------------------------------------------------------------
-  	- GetCoursesBySemester: Andri    	
-      - Find Error Cases
-      - Test
-  	---------------------------------------------------------------------------
-    -	GetCourseByID: Andri
-    	- Fetch single Course using LINQ to CourseDetailDTO
-    	-	Use LINQ to get students per Course and append to list to result
-      	- consider calling an external function for this if possible
-        - GetStudentByCourseID should have the same functionality
-      - Find Error Cases
-      - Test
-    ---------------------------------------------------------------------------
-    - DeleteCourseByID:
-      - Find Error Cases
-    	- Test
-    ---------------------------------------------------------------------------
-    - EditCourseByID: 
-     	- Update fields in Course table
-      - Update fields in CourseTemplate table
-      - Find Error Cases
-    	- Test
-    ---------------------------------------------------------------------------
-    - GetStudentByCourseID:
-    	- Return students in course using LINQ
-      - Test
-    ---------------------------------------------------------------------------
-    - AddStudentToCourseByID: Skúli
-    	- Add existing student to course, save to DB 
-      - Throw error if student doesn't exist
-      - Test
+                                                 (\ /)	Wot is this
+                                                 ( . .) ♥ 
+                                                c(”)(”)	  
     ---------------------------------------------------------------------------
 */
 
@@ -248,22 +213,23 @@ namespace assign2.Services
         /// </returns>   
         public bool EditCourseByID(int id, EditCourseViewModel model)
         {
-             var result = (
+             var courseResult = (
                 from course in _db.Courses
                 where course.ID == id
                 select course
                 ).SingleOrDefault();
-            
-            if(result == null)
-                return false;
-            
-            // Implement Course update
-          	// Implement CourseTemplate update
-            
-            Console.WriteLine(result);
 
-            result.StartDate = model.StartDate;
-            result.EndDate = model.EndDate;
+            if(courseResult == null)
+                return false;
+
+            var courseTemplateResult = (
+                from courseTemplate in _db.CoursesTemplates
+                where courseTemplate.ID == courseResult.TemplateID
+                select courseTemplate
+                ).SingleOrDefault();
+                 
+            courseResult.StartDate = model.StartDate;
+            courseResult.EndDate = model.EndDate;
             _db.SaveChanges();
 
             return true;
@@ -281,7 +247,7 @@ namespace assign2.Services
         /// </returns>
         public bool DeleteCourseByID(int id)
         {
-                var result = (
+            var result = (
                 from course in _db.Courses
                 where course.ID == id
                 select course
