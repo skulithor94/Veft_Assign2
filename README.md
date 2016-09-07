@@ -29,7 +29,16 @@ Summary Model Type Overview:
 
 - [ ] ROUTE SUPPORT
     - [x] /api/courses - GET
-        - [x] Should return "T-514-VEFT" "20163"
+        - [x] returns 
+        [
+            {
+                "id": 1,
+                "name": "Vefþjónustur",
+                "courseID": "T-514-VEFT",
+                "semester": "20163",
+                "students": 3
+            }
+        ]
     - [x] /api/courses?semester=20153
         - [x] Should return "T-514-VEFT" and "T-111-PROG" both "20153" 
     - [x] /api/courses/1 - GET
