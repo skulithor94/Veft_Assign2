@@ -3,6 +3,10 @@
 
 namespace assign2.Models
 {
+    /// <summary>
+    /// A detailed abstraction of Course and CourseTemplate
+    /// Used for shipping detailed information about a course to the client
+    /// </summary>
     public class CourseDetailDTO
     {
         /// <summary>

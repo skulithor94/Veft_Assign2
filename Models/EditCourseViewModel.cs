@@ -2,6 +2,10 @@ using System;
 
 namespace assign2.Models
 {
+    /// <summary>
+    /// An abstraction of Course and CourseTemplate
+    /// Used for for editing course information by client request
+    /// </summary>
     public class EditCourseViewModel
     {
         /// <summary>

@@ -1,5 +1,9 @@
 namespace assign2.Models
 {
+    /// <summary>
+    /// Abstraction of Student
+    /// Used for shipping a list of students with courseDetail
+    /// </summary>
     public class StudentLiteDTO
     {
         /// <summary>
